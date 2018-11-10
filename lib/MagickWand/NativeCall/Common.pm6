@@ -3,6 +3,8 @@ use v6;
 
 unit module MagickWand::NativeCall::Common;
 
+use NativeCall;
+
 constant LIB = 'MagickWand';
 
 use LibraryCheck;
@@ -31,9 +33,12 @@ sub library is export {
 #  #TODO implement KernelInfo http://www.imagemagick.org/api/MagickCore/structKernelInfo.html
 #}
 
-#class RectangeInfo is repr('CStruct') {
-  #TODO implement RectangeInfo
-#}
+class RectangleInfo is repr('CStruct') is export {
+  has size_t $.width;
+  has size_t $.height;
+  has ssize_t $.x;
+  has ssize_t $.y;
+}
 
 #class PointInfo is repr('CStruct') {
   #TODO implement PointInfo

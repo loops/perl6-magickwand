@@ -45,6 +45,7 @@ unit class MagickWand;
 # Packages
 use NativeCall;
 use MagickWand::NativeCall;
+use MagickWand::NativeCall::Common;
 use MagickWand::NativeCall::DrawingWand;
 use MagickWand::NativeCall::Image;
 use MagickWand::NativeCall::Mogrify;
@@ -92,6 +93,15 @@ multi method reset-image-page($desc) returns Bool {
 multi method reset-image-page returns Bool {
   die "No wand handle defined!" unless $.handle.defined;
   return MagickResetImagePage( $.handle, "0x0+0+0" ) == MagickTrue;
+}
+
+method similarity-image($match) {
+  die "No wand handle defined!" unless $.handle.defined;
+  my $rect = RectangleInfo.new;
+  my num64 $similarity;
+  my $temp-wand = MagickSimilarityImage( $.handle, $match.handle, $rect, $similarity );
+  DestroyMagickWand( $temp-wand );
+  return $rect.x, $rect.y, $similarity;
 }
 
 method auto-gamma returns Bool {
