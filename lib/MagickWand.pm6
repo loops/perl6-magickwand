@@ -84,6 +84,16 @@ method get-image-gamma returns Num {
   return MagickGetImageGamma( $.handle );
 }
 
+multi method reset-image-page($desc) returns Bool {
+  die "No wand handle defined!" unless $.handle.defined;
+  return MagickResetImagePage( $.handle, $desc ) == MagickTrue;
+}
+
+multi method reset-image-page returns Bool {
+  die "No wand handle defined!" unless $.handle.defined;
+  return MagickResetImagePage( $.handle, "0x0+0+0" ) == MagickTrue;
+}
+
 method auto-gamma returns Bool {
   die "No wand handle defined!" unless $.handle.defined;
   return MagickAutoGammaImage( $.handle ) == MagickTrue;
