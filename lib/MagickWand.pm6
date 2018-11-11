@@ -108,6 +108,12 @@ method similarity-image($match) {
   return $rect.x, $rect.y, $similarity;
 }
 
+method import-image-pixels($columns,$rows,$pixels,:$format = "BGRO") {
+  die "No wand handle defined!" unless $.handle.defined;
+  my $raw = nativecast(Pointer[void], $pixels);
+  return MagickImportImagePixels( $.handle, 0, 0, $columns, $rows, $format, CharPixel, $raw) == MagickTrue;
+}
+
 method auto-gamma returns Bool {
   die "No wand handle defined!" unless $.handle.defined;
   return MagickAutoGammaImage( $.handle ) == MagickTrue;

@@ -414,3 +414,20 @@ enum FilterTypes is export <
   SplineFilter
   SentinelFilter
 >;
+
+=begin pod
+
+=head1 StorageType
+
+=end pod
+
+enum StorageType is export <
+  UndefinedPixel
+  CharPixel
+  DoublePixel
+  FloatPixel
+  IntegerPixel
+  LongPixel
+  QuantumPixel
+  ShortPixel
+>;
