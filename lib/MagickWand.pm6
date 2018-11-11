@@ -74,7 +74,11 @@ method read(Str $file-name) returns Bool {
   return MagickReadImage( $.handle, $file-name ) == MagickTrue;
 }
 
-#TODO  multi method read-buffer(Buf :$buffer) returns Bool # uses MagickReadImageBlob
+multi method read-buffer(Buf $buffer) returns Bool {
+    $.handle = NewMagickWand unless $.handle.defined;
+    return MagickReadImageBlob( $.handle, nativecast(Pointer[void], $buffer), $buffer.bytes ) == MagickTrue;
+}
+
 multi method read-buffer($buffer, $length) returns Bool {
     $.handle = NewMagickWand unless $.handle.defined;
     return MagickReadImageBlob( $.handle, $buffer, $length) == MagickTrue;
