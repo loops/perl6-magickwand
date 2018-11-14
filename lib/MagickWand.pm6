@@ -108,8 +108,18 @@ method similarity-image($match) {
   return $rect.x, $rect.y, $similarity;
 }
 
-method import-image-pixels($columns,$rows,$pixels,:$format = "BGRO") {
+method export-image-pixels($pixels, :$format = "BGRO") {
   die "No wand handle defined!" unless $.handle.defined;
+  my int32 $rows = self.height;
+  my int32 $columns = self.width;
+  my uint32 $x = 0;
+  my uint32 $y = 0;
+  my $raw = nativecast(Pointer[void], $pixels);
+  return MagickExportImagePixels($.handle, $x, $y, $columns, $rows, $format, CharPixel, $raw) == MagickTrue;
+}
+
+method import-image-pixels($columns,$rows,$pixels,:$format = "BGRO") {
+  $.handle = NewMagickWand unless $.handle.defined;
   my $raw = nativecast(Pointer[void], $pixels);
   return MagickImportImagePixels( $.handle, 0, 0, $columns, $rows, $format, CharPixel, $raw) == MagickTrue;
 }
