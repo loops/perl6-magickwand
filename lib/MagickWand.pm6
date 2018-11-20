@@ -658,6 +658,20 @@ method wave(Real $amplitude, Real $wave_length) returns Bool {
   return MagickWaveImage( $.handle, $amplitude.Num, $wave_length.Num) == MagickTrue;
 }
 
+method floodfill-paint-image(Str $color, Num() :$fuzz = 0, Str :$border = "white", Int() :$x = 0, Int() :$y = 0,
+                                 Bool :$invert = False, ChannelType :$channels = DefaultChannels) returns Bool {
+  my ($fc,$bc) = NewPixelWand, NewPixelWand;
+  die "No wand handle defined!" unless $.handle.defined;
+  die "Failed to set floodfill color " unless PixelSetColor($fc, $color);
+  die "Failed to set background color " unless PixelSetColor($bc, $border);
+  return MagickFloodfillPaintImage($!handle, $channels, $fc, $fuzz, $bc, $x, $y, $invert ?? 1 !! 0) == MagickTrue;
+}
+
+method trim-image(Num() :$fuzz = 0) returns Bool {
+  die "No wand handle defined!" unless $!handle.defined;
+  return MagickTrimImage($!handle, $fuzz) == MagickTrue;
+}
+
 =begin pod
 
 =head3 cleanup
