@@ -51,6 +51,22 @@ enum NoiseType is export <UndefinedNoise UniformNoise GaussianNoise
 
 =end pod
 
+enum MetricType is export (
+  UndefinedErrorMetric => 0,
+  AbsoluteErrorMetric => 1,
+  FuzzErrorMetric => 2,
+  MeanAbsoluteErrorMetric => 3,
+  MeanErrorPerPixelErrorMetric => 4,
+  MeanSquaredErrorMetric => 5,
+  NormalizedCrossCorrelationErrorMetric => 6,
+  PeakAbsoluteErrorMetric => 7,
+  PeakSignalToNoiseRatioErrorMetric => 8,
+  PerceptualHashErrorMetric => 9,
+  RootMeanSquaredErrorMetric => 10,
+  StructuralSimilarityErrorMetric => 11,
+  StructuralDissimilarityErrorMetric => 12
+);
+
 enum ChannelType is export (
   UndefinedChannel  => 0,
   RedChannel        => 0x1,

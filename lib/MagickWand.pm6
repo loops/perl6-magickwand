@@ -103,7 +103,8 @@ method similarity-image($match) {
   die "No wand handle defined!" unless $.handle.defined;
   my $rect = RectangleInfo.new;
   my num64 $similarity;
-  my $temp-wand = MagickSimilarityImage( $.handle, $match.handle, $rect, $similarity );
+  my num64 $threshold = Num(0.2);
+  my $temp-wand = MagickSimilarityImage( $.handle, $match.handle, AbsoluteErrorMetric, $threshold, $rect, $similarity );
   DestroyMagickWand( $temp-wand );
   return $rect.x, $rect.y, $similarity;
 }

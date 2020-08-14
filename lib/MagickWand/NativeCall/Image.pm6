@@ -4749,13 +4749,15 @@ is export { * };
 =head1 MagickSimilarityImage
 
     MagickWand *MagickSimilarityImage(MagickWand *wand,
-      const MagickWand *reference,RectangleInfo *offset,double *similarity)
+      const MagickWand *reference, const MetricType metric, const double similarity_threshold, RectangleInfo *offset,double *similarity)
 
 MagickSimilarityImage() compares the reference image of the image and returns the best match offset.  In addition, it returns a similarity image such that an exact match location is completely white and if none of the pixels match, black, otherwise some gray level in-between.- wand: the magick wand. - reference: the reference wand. - offset: the best match offset of the reference image within the image. - similarity: the computed similarity between the images. 
 =end pod
 sub MagickSimilarityImage(
    Pointer $wand,
    Pointer $reference,
+   uint32 $metric,
+   num64 $threshold,
    RectangleInfo is rw,
    num64 is rw,
 )
