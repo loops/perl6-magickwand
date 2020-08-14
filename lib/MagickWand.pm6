@@ -237,6 +237,13 @@ method threshold(Real $threshold = 0) returns Bool {
   return MagickThresholdImage( $.handle, $threshold.Num) == MagickTrue;
 }
 
+method to-black-and-white() returns Bool {
+  die "No wand handle defined!" unless $.handle.defined;
+  $.p_handle = NewPixelWand unless $.p_handle.defined;
+  die "Failed to set white color " unless PixelSetColor( $.p_handle, "white" );
+  return MagickColorThresholdImage( $.handle, $.p_handle, $.p_handle ) == MagickTrue;
+}
+
 method add-noise(NoiseType $noise_type) {
   die "No wand handle defined!" unless $.handle.defined;
   return MagickAddNoiseImage( $.handle, $noise_type.Int ) == MagickTrue;

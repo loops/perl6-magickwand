@@ -635,6 +635,24 @@ is export { * };
 
 
 =begin pod
+=head1 MagickColorThresholdImage
+
+    MagickBooleanType MagickColorThresholdImage(MagickWand *wand,
+      const PixelWand *start_color, const PixelWand *stop_color)
+
+MagickColorThresholdImage() forces all pixels in the color range to white otherwise black.
+=end pod
+sub MagickColorThresholdImage(
+   Pointer $wand,
+   Pointer $start,
+   Pointer $stop
+)
+returns uint32
+is native(&library)
+is export { * };
+
+
+=begin pod
 =head1 MagickColorizeImage
 
     MagickBooleanType MagickColorizeImage(MagickWand *wand,
