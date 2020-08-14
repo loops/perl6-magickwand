@@ -232,6 +232,11 @@ method adaptive-threshold(Int $width, Int $height, Int $offset) {
   return MagickAdaptiveThresholdImage( $.handle, $width, $height, $offset ) == MagickTrue;
 }
 
+method threshold(Real $threshold = 0) returns Bool {
+  die "No wand handle defined!" unless $.handle.defined;
+  return MagickThresholdImage( $.handle, $threshold.Num) == MagickTrue;
+}
+
 method add-noise(NoiseType $noise_type) {
   die "No wand handle defined!" unless $.handle.defined;
   return MagickAddNoiseImage( $.handle, $noise_type.Int ) == MagickTrue;
