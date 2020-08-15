@@ -4746,6 +4746,26 @@ is export { * };
 
 
 =begin pod
+
+
+=head1 MagickLevelizeImage
+
+    MagickBooleanType MagickLevelizeImage(MagickWand *wand,
+      const double black_point, const double white_point,const double gamma)
+
+MagickLevelizeImage() applies the reversed MagickLevelImage(). It compresses the full range of color values, so that they lie between the given black and white points. Gamma is applied before the values are mapped. It can be used to de-contrast a greyscale image to the exact levels specified.
+=end pod
+sub MagickLevelizeImage(
+   Pointer $wand,
+   num64 $black,
+   num64 $white,
+   num64 $gamma,
+)
+returns Pointer
+is native(&library)
+is export { * };
+
+=begin pod
 =head1 MagickSimilarityImage
 
     MagickWand *MagickSimilarityImage(MagickWand *wand,

@@ -103,7 +103,7 @@ method similarity-image($match) {
   die "No wand handle defined!" unless $.handle.defined;
   my $rect = RectangleInfo.new;
   my num64 $similarity;
-  my num64 $threshold = Num(0.2);
+  my num64 $threshold = Num(0.2);  # SBE don't hard code this 0.2 value
   my $temp-wand = MagickSimilarityImage( $.handle, $match.handle, AbsoluteErrorMetric, $threshold, $rect, $similarity );
   DestroyMagickWand( $temp-wand );
   return $rect.x, $rect.y, $similarity;
@@ -236,6 +236,11 @@ method adaptive-threshold(Int $width, Int $height, Int $offset) {
 method threshold(Real $threshold = 0) returns Bool {
   die "No wand handle defined!" unless $.handle.defined;
   return MagickThresholdImage( $.handle, $threshold.Num) == MagickTrue;
+}
+
+method to-greyscale() returns Bool {
+  die "No wand handle defined!" unless $.handle.defined;
+  return MagickLevelImage( $.handle, Num(0.05), Num(0.05), Num(0.05) ) == MagickTrue;
 }
 
 method to-black-and-white() returns Bool {
